@@ -1,0 +1,50 @@
+name: "Pull Request Labeler"
+on:
+  issues:
+    types: [opened, reopened, edited]
+  pull_request_target:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  pull-requests: write
+  issues: write
+  packages: read
+  contents: read
+
+jobs:
+  issue-labeler:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues'
+    steps:
+    - uses: github/issue-labeler@v3.4 #May not be the latest version
+      with:
+        configuration-path: .github/issue-labeler.yml
+        enable-versioned-regex: 0
+        include-title: 1
+        include-body: 1
+        sync-labels: 1        
+        
+  pr-labeler:
+    if: github.event_name == 'pull_request_target'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: kentaro-m/auto-assign-action@v2.0.0
+      with:
+        configuration-path: '.github/pr-reviewers.yml'
+    - uses: actions/labeler@v5
+      with:
+        configuration-path: .github/pr-labeler.yml
+        sync-labels: true
+    - uses: "pascalgn/size-label-action@v0.5.5"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        sizes: >
+            {
+              "0": "XS",
+              "10": "S",
+              "30": "M",
+              "100": "L",
+              "500": "XL",
+              "1000": "XXL"
+            }   

@@ -1,0 +1,5 @@
+'documentation 📃':
+  - changed-files:
+    - any-glob-to-any-file: 
+      - docs/**
+      - '**/*.md'
