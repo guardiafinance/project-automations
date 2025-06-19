@@ -1,8 +1,8 @@
 ---
-name: Bug report
+name: "Bug report \U0001F41E"
 about: Create a report to help us improve
 title: bug/ {{ summarize the reported bug here }}
-labels: "bug report \U0001F41E"
+labels: "bug report \U0001F41E, feature request ➕"
 assignees: ''
 
 ---
