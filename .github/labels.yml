@@ -1,0 +1,155 @@
+- name: "breaking change 💥"
+  color: "925845"
+  description: "Issue or PR adding a breaking change. Major version bump required"
+  aliases:
+    - "breaking change"
+
+- name: "bug report 🐞"
+  color: "fc2803"
+  description: "Report a new bug"
+  aliases:
+    - "bug"
+
+- name: "bugfix 🔧"
+  color: "fc4e03"
+  description: "Issue or PR related to something isn't working"
+  aliases:
+    - "bugfix"
+
+- name: "ci 🏗️"
+  color: "ff7a0e"
+  description: "Issue or PR releated to Continuous Integration (CI) pipeline enhancements"
+  aliases:
+    - "ci"
+
+- name: "codex ✨"
+  color: "111112"
+  description: "PR opened by Codex"
+  aliases:
+    - "codex"
+
+- name: "compliance 📜"
+  color: "cdb620"
+  description: "Issue or PR releated to enhancement to be compliant with something"
+  aliases:
+    - "compliance"
+
+- name: "copilot ✨"
+  color: "111112"
+  description: "PR opened by Copilot"
+  aliases:
+    - "copilot"
+
+- name: "cursor ✨"
+  color: "111112"
+  description: "PR opened by Cursor"
+  aliases:
+    - "cursor"
+
+- name: "deprecate 🪦"
+  color: "5f6a70"
+  description: "Issue to deprecate some existing feature"
+  aliases:
+    - "deprecate"
+
+- name: "documentation 📃"
+  color: "0075ca"
+  description: "Issue or PR releated to improvements or additions to documentation"
+  aliases:
+    - "docs"
+
+- name: "duplicate !!"
+  color: "cfd3d7"
+  description: "This issue or pull request already exists"
+  aliases:
+    - "duplicate"
+
+- name: "enhancement 🔝"
+  color: "D5BBED"
+  description: "Issue or PR releated to a enhancement to an existing feature"
+  aliases:
+    - "enhancement"
+
+- name: "evolvability ♻️"
+  color: "008672"
+  description: "Issue or PR launched to ensure the project's evolvability. Aka refactoring, clean code, etc."
+  aliases:
+    - "evolvability"
+
+- name: "feature request ➕"
+  color: "5319E7"
+  description: "Issue about a new feature request"
+  aliases:
+    - "feature request"
+
+- name: "feature ➕"
+  color: "7828E5"
+  description: "New features added. Use only after approve feature request"
+  aliases:
+    - "feature"
+
+- name: "good first issue 🧠"
+  color: "CA3AC2"
+  description: "Issue good for newcomers"
+  aliases:
+    - "good first issue"
+
+- name: "question ✋"
+  color: "d876e3"
+  description: "Further information is requested"
+  aliases:
+    - "question"
+
+- name: "rejected ❌"
+  color: "b52816"
+  description: "Issue or pull request rejected"
+  aliases:
+    - "rejected"
+
+- name: "release ↗️"
+  color: "81A5DC"
+  description: "To be set only on release PR"
+  aliases:
+    - "release"
+
+- name: "size/L"
+  color: "FBCA04"
+  description: "This PR changes 100-499 lines, ignoring generated files. Setted automatically"
+
+- name: "size/M"
+  color: "5319E7"
+  description: "This PR changes 30-99 lines, ignoring generated files. Setted automatically"
+
+- name: "size/S"
+  color: "0052CC"
+  description: "This PR changes 10-29 lines, ignoring generated files. Setted automatically"
+
+- name: "size/XL"
+  color: "D93F0B"
+  description: "This PR changes 500-999 lines, ignoring generated files. Setted automatically"
+
+- name: "size/XS"
+  color: "52CAFA"
+  description: "This PR changes 0-9 lines, ignoring generated files. Setted automatically"
+
+- name: "size/XXL"
+  color: "B60205"
+  description: "This PR changes over 1,000 lines, ignoring the generated files. Setted automatically"
+
+- name: "user story 🎯"
+  color: "18F64B"
+  description: "A new user story"
+  aliases:
+    - "user story"
+
+- name: "vulnerability 🚨"
+  color: "B60205"
+  description: "Vulnerability detected"
+  aliases:
+    - "vulnerability"
+
+- name: "wontfix 🤷‍♀️"
+  color: "ffffff"
+  description: "This issue will not be worked on"
+  aliases:
+    - "wontfix"
