@@ -33,7 +33,7 @@ jobs:
           move_related_issues: true
   issue-closed:
     runs-on: ubuntu-latest
-    if: github.event_name == 'issues' && github.event.action == 'closed'
+    if: github.event_name == 'issues' && github.event.action == 'closed' && !contains(github.event.issue.labels.*.name, 'rejected ❌')
     steps:
       - name: Move Issue to DONE
         uses: leonsteinhaeuser/project-beta-automations@v2.1.0
@@ -43,6 +43,19 @@ jobs:
           resource_node_id: ${{ github.event.issue.node_id }}
           gh_token: ${{ env.gh_project_token }}
           status_value: DONE
+          move_related_issues: true
+  issue-rejected:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && github.event.action == 'closed' && contains(github.event.issue.labels.*.name, 'rejected ❌')
+    steps:
+      - name: Move Issue to REJECTED
+        uses: leonsteinhaeuser/project-beta-automations@v2.1.0
+        with:
+          organization: ${{ env.organization }}
+          project_id: ${{ env.project_id }}
+          resource_node_id: ${{ github.event.issue.node_id }}
+          gh_token: ${{ env.gh_project_token }}
+          status_value: REJECTED
           move_related_issues: true
   pull-request-opened:
     runs-on: ubuntu-latest
