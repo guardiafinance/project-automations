@@ -1,9 +1,9 @@
-name: "Bug report \U0001F41E"
+name: "Bug report 🐞"
 description: Create a report to help us improve
 title: bug/ {{ summarize the reported bug here }}
 type: Bug
 labels: 
-  - "bug report \U0001F41E"
+  - "bug report 🐞"
 assignees:
   - commitybyguardia
 projects:
