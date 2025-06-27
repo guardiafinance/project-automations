@@ -13,63 +13,62 @@ on:
       - closed
 
 env:
-  organization: guardiafinance
+  organization: ${{ vars.ORGANIZATION_NAME }}
   project_id: ${{ vars.GH_PROJECT_ID }}
-  gh_project_token: ${{ secrets.GH_PROJECT_TOKEN }}                                                                                                                                                                                                                                                                                                                                                                                                
-  status_values: '{"backlog": "BACKLOG", "to_refinement": "TO REFINEMENT", "refinement": "REFINEMENT", "read_for_code": "READ FOR CODE", "coding": "CODING", "code_review": "CODE REVIEW", "read_for_test": "READ FOR TEST", "testing": "TESTING", "done": "DONE", "rejected": "REJECTED"}'
+  gh_project_token: ${{ secrets.GH_PROJECT_TOKEN }}
 
 jobs:
   issue-opened:
     runs-on: ubuntu-latest
     if: github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'reopened')
     steps:
-      - name: Move Issue to ${{ env.status_values.backlog }}
+      - name: Move Issue to BACKLOG
         uses: leonsteinhaeuser/project-beta-automations@v2.1.0
         with:
           organization: ${{ env.organization }}
           project_id: ${{ env.project_id }}
           resource_node_id: ${{ github.event.issue.node_id }}
           gh_token: ${{ env.gh_project_token }}
-          status_value: ${{ env.status_values.backlog }}
+          status_value: BACKLOG
           move_related_issues: true
   issue-closed:
     runs-on: ubuntu-latest
     if: github.event_name == 'issues' && github.event.action == 'closed'
     steps:
-      - name: Move Issue to ${{ env.status_values.done }}
+      - name: Move Issue to DONE
         uses: leonsteinhaeuser/project-beta-automations@v2.1.0
         with:
           organization: ${{ env.organization }}
           project_id: ${{ env.project_id }}
           resource_node_id: ${{ github.event.issue.node_id }}
           gh_token: ${{ env.gh_project_token }}
-          status_value: ${{ env.status_values.done }}
+          status_value: DONE
           move_related_issues: true
   pull-request-opened:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'reopened')
     steps:
-      - name: Move PR to ${{ env.status_values.code_review }}
+      - name: Move PR to CODE_REVIEW
         uses: leonsteinhaeuser/project-beta-automations@v2.1.0
         with:
           organization: ${{ env.organization }}
           project_id: ${{ env.project_id }}
           gh_token: ${{ env.gh_project_token }}
           resource_node_id: ${{ github.event.pull_request.node_id }}
-          status_value: ${{ env.status_values.code_review }}
+          status_value: CODE_REVIEW
           move_related_issues: true
   pull-request-closed:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     steps:
-      - name: Move PR to ${{ env.status_values.read_for_test }}
+      - name: Move PR to DONE
         uses: leonsteinhaeuser/project-beta-automations@v2.1.0
         with:
           organization: ${{ env.organization }}
           project_id: ${{ env.project_id }}
           resource_node_id: ${{ github.event.pull_request.node_id }}
           gh_token: ${{ env.gh_project_token }}
-          status_value: ${{ env.status_values.read_for_test }}
+          status_value: DONE
           move_related_issues: true
 
 
