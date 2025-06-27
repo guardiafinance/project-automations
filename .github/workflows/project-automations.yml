@@ -1,0 +1,87 @@
+name: Project automations
+
+on:
+  issues:
+    types:
+      - opened
+      - reopened
+      - closed
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - closed
+
+env:
+  organization: guardiafinance
+  project_id: ${{ vars.GH_PROJECT_ID }}
+  gh_project_token: ${{ secrets.GH_PROJECT_TOKEN }}
+  status_values: '{"backlog": "BACKLOG", "to_refinement": "TO REFINEMENT", "refinement": "REFINEMENT", "read_for_code": "READ FOR CODE", "coding": "CODING", "code_review": "CODE REVIEW", "read_for_test": "READ FOR TEST", "testing": "TESTING", "done": "DONE", "rejected": "REJECTED"}'
+
+jobs:
+  issue-opened:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'reopened')
+    steps:
+      - name: Move Issue to ${{ env.status_values.backlog }}
+        uses: leonsteinhaeuser/project-beta-automations@v2.1.0
+        env:
+          DEBUG_COMMANDS: true
+          DEBUG_LOG: true
+        with:
+          organization: ${{ env.organization }}
+          project_id: ${{ env.project_id }}
+          resource_node_id: ${{ github.event.issue.node_id }}
+          gh_token: ${{ env.gh_project_token }}
+          status_value: ${{ env.status_values.backlog }}
+          move_related_issues: true
+  issue-closed:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && github.event.action == 'closed'
+    steps:
+      - name: Move Issue to ${{ env.status_values.done }}
+        uses: leonsteinhaeuser/project-beta-automations@v2.1.0
+        env:
+          DEBUG_COMMANDS: true
+          DEBUG_LOG: true
+        with:
+          organization: ${{ env.organization }}
+          project_id: ${{ env.project_id }}
+          resource_node_id: ${{ github.event.issue.node_id }}
+          gh_token: ${{ env.gh_project_token }}
+          status_value: ${{ env.status_values.done }}
+          move_related_issues: true
+  pull-request-opened:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'reopened')
+    steps:
+      - name: Move PR to ${{ env.status_values.code_review }}
+        uses: leonsteinhaeuser/project-beta-automations@v2.1.0
+        env:
+          DEBUG_COMMANDS: true
+          DEBUG_LOG: true
+        with:
+          organization: ${{ env.organization }}
+          project_id: ${{ env.project_id }}
+          gh_token: ${{ env.gh_project_token }}
+          resource_node_id: ${{ github.event.pull_request.node_id }}
+          status_value: ${{ env.status_values.code_review }}
+          move_related_issues: true
+  pull-request-closed:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    steps:
+      - name: Move PR to ${{ env.status_values.read_for_test }}
+        uses: leonsteinhaeuser/project-beta-automations@v2.1.0
+        env:
+          DEBUG_COMMANDS: true
+          DEBUG_LOG: true
+        with:
+          organization: ${{ env.organization }}
+          project_id: ${{ env.project_id }}
+          resource_node_id: ${{ github.event.pull_request.node_id }}
+          gh_token: ${{ env.gh_project_token }}
+          status_value: ${{ env.status_values.read_for_test }}
+          move_related_issues: true
+
+

@@ -1,2 +1,5 @@
 'documentation 📃':
   - '(doc|docs|documentation|documentations|spec|specs|specification|specifications)'
+
+'ci 🏗️':
+  - '(ci|ci-cd|ci/cd|ci/cds|continuous integration|continuous integrations|continuous delivery|continuous deliveries)'
