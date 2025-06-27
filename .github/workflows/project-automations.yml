@@ -18,9 +18,9 @@ env:
   gh_project_token: ${{ secrets.GH_PROJECT_TOKEN }}
 
 jobs:
-  issue-opened:
+  issue-opened-or-reopened:
     runs-on: ubuntu-latest
-    if: github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'reopened')
+    if: github.event_name == 'issues' && (github.event.action == 'opened' || (github.event.action == 'reopened' && !contains(github.event.issue.labels.*.name, 'rejected ❌')))
     steps:
       - name: Move Issue to BACKLOG
         uses: leonsteinhaeuser/project-beta-automations@v2.1.0
@@ -30,6 +30,19 @@ jobs:
           resource_node_id: ${{ github.event.issue.node_id }}
           gh_token: ${{ env.gh_project_token }}
           status_value: BACKLOG
+          move_related_issues: true
+  issue-reopened-to-refinement:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && github.event.action == 'reopened' && !contains(github.event.issue.labels.*.name, 'rejected ❌')
+    steps:
+      - name: Move Issue to TO REFINEMENT
+        uses: leonsteinhaeuser/project-beta-automations@v2.1.0
+        with:
+          organization: ${{ env.organization }}
+          project_id: ${{ env.project_id }}
+          resource_node_id: ${{ github.event.issue.node_id }}
+          gh_token: ${{ env.gh_project_token }}
+          status_value: "TO REFINEMENT"
           move_related_issues: true
   issue-closed:
     runs-on: ubuntu-latest
@@ -61,14 +74,14 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'reopened')
     steps:
-      - name: Move PR to CODE_REVIEW
+      - name: Move PR to CODE REVIEW
         uses: leonsteinhaeuser/project-beta-automations@v2.1.0
         with:
           organization: ${{ env.organization }}
           project_id: ${{ env.project_id }}
           gh_token: ${{ env.gh_project_token }}
           resource_node_id: ${{ github.event.pull_request.node_id }}
-          status_value: CODE_REVIEW
+          status_value: "CODE REVIEW"
           move_related_issues: true
   pull-request-closed:
     runs-on: ubuntu-latest
