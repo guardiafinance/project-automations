@@ -20,22 +20,74 @@ body:
       label: Describe the feature you'd like
       description: A clear and concise description of what you want to happen.
       placeholder: Tell us about your ideal feature
+      value: |
+        **Feature Summary**
+        [Provide a brief, one-sentence summary of the feature]
+
+        **User Story**
+        As a [type of user], 
+        I want [feature/functionality] 
+        so that [benefit/value].
+
+        **Current Behavior**
+        [Describe how things work currently, if applicable]
+
+        **Desired Behavior**
+        [Describe how you want things to work with this new feature]
+
+        **Business Value**
+        [Explain why this feature is important and what value it brings]
     validations:
       required: true
   - type: textarea
     id: solution-description
     attributes:
       label: Describe the solution you'd like
-      description: A clear and concise description of what you want to happen.
+      description: A detailed description of the proposed solution.
       placeholder: Tell us about your ideal solution
+      value: |
+        **Proposed Solution**
+        [Describe your preferred solution in detail]
+
+        **Implementation Considerations**
+        - [ ] Frontend changes needed
+        - [ ] Backend changes needed
+        - [ ] Database changes needed
+        - [ ] API changes needed
+        - [ ] Documentation updates needed
+
+        **Acceptance Criteria**
+        - [ ] [Specific criteria that must be met for this feature to be considered complete]
+        - [ ] [Add more criteria as needed]
+
+        **Definition of Done**
+        - [ ] Feature is implemented and tested
+        - [ ] Documentation is updated
+        - [ ] Code is reviewed and approved
+        - [ ] Feature is deployed to production
     validations:
       required: true
   - type: textarea
     id: alternatives-considered
     attributes:
       label: Describe alternatives you've considered
-      description: A clear and concise description of any alternative solutions or features you've considered.
+      description: Any alternative solutions or approaches you've thought about.
       placeholder: What other approaches have you thought about?
+      value: |
+        **Alternative 1**
+        [Describe the first alternative approach]
+        
+        **Pros:** [List the advantages]
+        **Cons:** [List the disadvantages]
+
+        **Alternative 2**
+        [Describe another alternative approach, if applicable]
+        
+        **Pros:** [List the advantages]
+        **Cons:** [List the disadvantages]
+
+        **Why the proposed solution is better**
+        [Explain why your proposed solution is preferred over these alternatives]
     validations:
       required: false
   - type: textarea
