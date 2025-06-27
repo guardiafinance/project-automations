@@ -1,0 +1,71 @@
+name: "Feature request ➕"
+description: Suggest an idea for this project
+title: feat/ {{ summarize your feature request here }}
+type: Feature
+labels: 
+  - "feature request ➕"
+assignees:
+  - commitybyguardia
+projects:
+  - "guardiafinance/13"
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest a new feature!
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Describe the feature you'd like
+      description: A clear and concise description of what you want to happen.
+      placeholder: Tell us about your ideal feature
+    validations:
+      required: true
+  - type: textarea
+    id: solution-description
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what you want to happen.
+      placeholder: Tell us about your ideal solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives-considered
+    attributes:
+      label: Describe alternatives you've considered
+      description: A clear and concise description of any alternative solutions or features you've considered.
+      placeholder: What other approaches have you thought about?
+    validations:
+      required: false
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the feature request here.
+      placeholder: Any additional information that might be helpful
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        In some cases we may need more details, so please consider sharing this information with us below.
+
+        > [!NOTE]
+        > We will only contact you if it is absolutely necessary. To follow the progress of the issue, you can follow it here on Github
+  - type: input
+    id: slack-username
+    attributes:
+      label: Slack Username
+      description: We will use this Slack username onto [Comm.ity by Guardia](https://commitybyguardia.slack.com) to contact you if we need more info.
+      placeholder: ex. @joao.silva
+    validations:
+      required: false
+  - type: input
+    id: email
+    attributes:
+      label: Email for contact
+      description: We will use this email to contact you if we need more info.
+      placeholder: ex. email@example.com
+    validations:
+      required: false
