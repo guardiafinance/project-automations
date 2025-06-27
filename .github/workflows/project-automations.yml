@@ -15,7 +15,7 @@ on:
 env:
   organization: guardiafinance
   project_id: ${{ vars.GH_PROJECT_ID }}
-  gh_project_token: ${{ secrets.GH_PROJECT_TOKEN }}
+  gh_project_token: ${{ secrets.GH_PROJECT_TOKEN }}                                                                                                                                                                                                                                                                                                                                                                                                
   status_values: '{"backlog": "BACKLOG", "to_refinement": "TO REFINEMENT", "refinement": "REFINEMENT", "read_for_code": "READ FOR CODE", "coding": "CODING", "code_review": "CODE REVIEW", "read_for_test": "READ FOR TEST", "testing": "TESTING", "done": "DONE", "rejected": "REJECTED"}'
 
 jobs:
@@ -25,9 +25,6 @@ jobs:
     steps:
       - name: Move Issue to ${{ env.status_values.backlog }}
         uses: leonsteinhaeuser/project-beta-automations@v2.1.0
-        env:
-          DEBUG_COMMANDS: true
-          DEBUG_LOG: true
         with:
           organization: ${{ env.organization }}
           project_id: ${{ env.project_id }}
@@ -41,9 +38,6 @@ jobs:
     steps:
       - name: Move Issue to ${{ env.status_values.done }}
         uses: leonsteinhaeuser/project-beta-automations@v2.1.0
-        env:
-          DEBUG_COMMANDS: true
-          DEBUG_LOG: true
         with:
           organization: ${{ env.organization }}
           project_id: ${{ env.project_id }}
@@ -57,9 +51,6 @@ jobs:
     steps:
       - name: Move PR to ${{ env.status_values.code_review }}
         uses: leonsteinhaeuser/project-beta-automations@v2.1.0
-        env:
-          DEBUG_COMMANDS: true
-          DEBUG_LOG: true
         with:
           organization: ${{ env.organization }}
           project_id: ${{ env.project_id }}
@@ -73,9 +64,6 @@ jobs:
     steps:
       - name: Move PR to ${{ env.status_values.read_for_test }}
         uses: leonsteinhaeuser/project-beta-automations@v2.1.0
-        env:
-          DEBUG_COMMANDS: true
-          DEBUG_LOG: true
         with:
           organization: ${{ env.organization }}
           project_id: ${{ env.project_id }}
