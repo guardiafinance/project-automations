@@ -16,12 +16,38 @@ jobs:
       labels_config_path: ".github/labeling/labels.yml"  # Opcional
       delete_other_labels: true                          # Opcional
       dry_run: false                                     # Opcional
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}                 # Opcional - usa GITHUB_TOKEN por padrão
 ```
 
 **Inputs:**
-- `labels_config_path`: Caminho para arquivo de configuração de labels (padrão: `.github/labeling/labels.yml`)
+- `labels_config_path`: Caminho para arquivo de configuração de labels (padrão: URL do repositório de referência)
 - `delete_other_labels`: Remove labels não definidos no config (padrão: `true`)
 - `dry_run`: Executa sem fazer alterações (padrão: `false`)
+
+**Secrets opcionais:**
+- `token`: Token do GitHub ou PAT personalizado (padrão: usa `GITHUB_TOKEN` automaticamente)
+
+**Exemplos de uso:**
+
+*Uso básico (só GITHUB_TOKEN):*
+```yaml
+jobs:
+  sync-labels:
+    uses: guardiafinance/project-automations/.github/workflows/reusable-label-sync.yml@main
+    # Usa GITHUB_TOKEN automaticamente
+```
+
+*Uso com token personalizado:*
+```yaml
+jobs:
+  sync-labels:
+    uses: guardiafinance/project-automations/.github/workflows/reusable-label-sync.yml@main
+    with:
+      labels_config_path: ".github/labeling/labels.yml"
+    secrets:
+      token: ${{ secrets.MY_CUSTOM_PAT }}  # Token com mais permissões
+```
 
 ---
 

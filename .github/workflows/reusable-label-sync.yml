@@ -18,7 +18,10 @@ on:
         required: false
         type: boolean
         default: false
-
+    secrets:
+      token:
+        description: "GitHub token or PAT"
+        required: false
 
 permissions:
   issues: write
@@ -40,5 +43,4 @@ jobs:
           config-file: ${{ inputs.labels_config_path }}
           delete-other-labels: ${{ inputs.delete_other_labels }}
           dry-run: ${{ inputs.dry_run }}
-          request-token: ${{ secrets.YOUR_OWN_SECRET }}
-          token: ${{ secrets.GITHUB_TOKEN }} 
+          token: ${{ secrets.token || secrets.GITHUB_TOKEN }} 
