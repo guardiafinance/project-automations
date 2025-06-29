@@ -95,6 +95,5 @@ jobs:
           resource_node_id: ${{ github.event.pull_request.node_id }}
           gh_token: ${{ env.gh_project_token }}
           status_value: DONE
-          move_related_issues: true
 
 

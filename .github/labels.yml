@@ -148,6 +148,12 @@
   aliases:
     - "vulnerability"
 
+- name: "dependabot 🤖"
+  color: "0052CC"
+  description: "Dependabot alert"
+  aliases:
+    - "dependabot"
+
 - name: "wontfix 🤷‍♀️"
   color: "ffffff"
   description: "This issue will not be worked on"
