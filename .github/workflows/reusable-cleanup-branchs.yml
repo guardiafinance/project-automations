@@ -1,0 +1,60 @@
+name: "Reusable: Cleanup Old Branches"
+
+on:
+  workflow_call:
+    inputs:
+      date:
+        description: "Delete branches older than this date (e.g., '3 months ago', '1 year ago')"
+        required: false
+        type: string
+        default: "3 months ago"
+      dry_run:
+        description: "Perform a dry run without actually deleting branches"
+        required: false
+        type: boolean
+        default: true
+      delete_tags:
+        description: "Whether to delete old tags as well"
+        required: false
+        type: boolean
+        default: true
+      minimum_tags:
+        description: "Minimum number of tags to keep"
+        required: false
+        type: number
+        default: 5
+      extra_protected_branch_regex:
+        description: "Extra regex pattern for protected branches"
+        required: false
+        type: string
+        default: "^(foo|bar)$"
+      extra_protected_tag_regex:
+        description: "Extra regex pattern for protected tags"
+        required: false
+        type: string
+        default: "^v.*"
+      exclude_open_pr_branches:
+        description: "Whether to exclude branches with open pull requests"
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  cleanup-old-branches:
+    name: "Cleanup Old Branches"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Run delete-old-branches-action
+        uses: beatlabs/delete-old-branches-action@v0.0.10
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          date: ${{ inputs.date }}
+          dry_run: ${{ inputs.dry_run }}
+          delete_tags: ${{ inputs.delete_tags }}
+          minimum_tags: ${{ inputs.minimum_tags }}
+          extra_protected_branch_regex: ${{ inputs.extra_protected_branch_regex }}
+          extra_protected_tag_regex: ${{ inputs.extra_protected_tag_regex }}
+          exclude_open_pr_branches: ${{ inputs.exclude_open_pr_branches }}

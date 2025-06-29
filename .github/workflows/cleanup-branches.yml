@@ -1,0 +1,28 @@
+name: "Cleanup Old Branches"
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Perform a dry run without actually deleting branches"
+        required: false
+        type: boolean
+        default: true
+      date:
+        description: "Delete branches older than this date"
+        required: false
+        type: string
+        default: "3 months ago"
+
+jobs:
+  cleanup-branches:
+    name: "Cleanup Old Branches"
+    uses: ./.github/workflows/reusable-cleanup-branchs.yml
+    with:
+      date: ${{ inputs.date || '3 months ago' }}
+      dry_run: ${{ inputs.dry_run || true }}
+      delete_tags: true
+      minimum_tags: 10
+      extra_protected_branch_regex: "^(main|master|develop|staging|production)$"
+      extra_protected_tag_regex: "^(v[0-9]+\\.[0-9]+\\.[0-9]+|release-.*)$"
+      exclude_open_pr_branches: true 
