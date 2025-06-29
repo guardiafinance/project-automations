@@ -56,8 +56,9 @@ on:
         description: "GitHub project token with project write permissions"
         required: true
 
-env:
-  DEBUG_LOG: true
+permissions:
+  issues: write
+  pull-requests: write
 
 jobs:
   issue-opened-or-reopened:
