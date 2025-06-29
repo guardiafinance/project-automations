@@ -26,7 +26,7 @@ jobs:
     - uses: github/issue-labeler@v3.4 #May not be the latest version
       name: "Labeler Issues"
       with:
-        configuration-path: .github/issue-labeler.yml
+        configuration-path: .github/labeling/issue-labeler.yml
         enable-versioned-regex: 0
         include-title: 1
         include-body: 1
@@ -40,11 +40,11 @@ jobs:
     - uses: kentaro-m/auto-assign-action@v2.0.0
       name: "Auto Assign PRs"
       with:
-        configuration-path: '.github/pr-reviewers.yml'
+        configuration-path: '.github/reviewers/pr-reviewers.yml'
     - uses: actions/labeler@v5
       name: "Add PRs Reviewers"
       with:
-        configuration-path: .github/pr-labeler.yml
+        configuration-path: .github/labeling/pr-labeler.yml
         sync-labels: true
     - uses: "pascalgn/size-label-action@v0.5.5"
       name: "Add PRs Size"
