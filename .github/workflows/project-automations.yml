@@ -20,6 +20,7 @@ env:
 jobs:
   issue-opened-or-reopened:
     runs-on: ubuntu-latest
+    name: "Issue Opened or Reopened"
     if: github.event_name == 'issues' && (github.event.action == 'opened' || (github.event.action == 'reopened' && !contains(github.event.issue.labels.*.name, 'rejected ❌')))
     steps:
       - name: Move Issue to BACKLOG
@@ -33,6 +34,7 @@ jobs:
           move_related_issues: true
   issue-reopened-to-refinement:
     runs-on: ubuntu-latest
+    name: "Issue Reopened to Refinement"
     if: github.event_name == 'issues' && github.event.action == 'reopened' && !contains(github.event.issue.labels.*.name, 'rejected ❌')
     steps:
       - name: Move Issue to TO REFINEMENT
@@ -46,6 +48,7 @@ jobs:
           move_related_issues: true
   issue-closed:
     runs-on: ubuntu-latest
+    name: "Issue Closed"
     if: github.event_name == 'issues' && github.event.action == 'closed' && !contains(github.event.issue.labels.*.name, 'rejected ❌')
     steps:
       - name: Move Issue to DONE
@@ -59,6 +62,7 @@ jobs:
           move_related_issues: true
   issue-rejected:
     runs-on: ubuntu-latest
+    name: "Issue Rejected"
     if: github.event_name == 'issues' && github.event.action == 'closed' && contains(github.event.issue.labels.*.name, 'rejected ❌')
     steps:
       - name: Move Issue to REJECTED
@@ -72,6 +76,7 @@ jobs:
           move_related_issues: true
   pull-request-opened:
     runs-on: ubuntu-latest
+    name: "Pull Request Opened or Reopened"
     if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'reopened')
     steps:
       - name: Move PR to CODE REVIEW
@@ -85,6 +90,7 @@ jobs:
           move_related_issues: true
   pull-request-closed:
     runs-on: ubuntu-latest
+    name: "Pull Request Closed"
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     steps:
       - name: Move PR to DONE
