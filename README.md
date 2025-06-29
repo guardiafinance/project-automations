@@ -92,35 +92,6 @@ jobs:
 
 ---
 
-### 4. **reusable-cleanup-branchs.yml** - Limpeza de Branches Antigas
-Remove automaticamente branches e tags antigas do repositório.
-
-**Como usar:**
-```yaml
-jobs:
-  cleanup-branches:
-    uses: guardiafinance/project-automations/.github/workflows/reusable-cleanup-branchs.yml@main
-    with:
-      date: "3 months ago"                                         # Opcional
-      dry_run: true                                               # Opcional
-      delete_tags: true                                           # Opcional
-      minimum_tags: 5                                             # Opcional
-      extra_protected_branch_regex: "^(main|master|develop)$"     # Opcional
-      extra_protected_tag_regex: "^v.*"                           # Opcional
-      exclude_open_pr_branches: true                              # Opcional
-```
-
-**Inputs opcionais:**
-- `date`: Deletar branches mais antigas que esta data (padrão: `"3 months ago"`)
-- `dry_run`: Executar sem fazer alterações reais (padrão: `true`)
-- `delete_tags`: Se deve deletar tags antigas também (padrão: `true`)
-- `minimum_tags`: Número mínimo de tags para manter (padrão: `5`)
-- `extra_protected_branch_regex`: Regex para branches protegidas extras (padrão: `"^(foo|bar)$"`)
-- `extra_protected_tag_regex`: Regex para tags protegidas extras (padrão: `"^v.*"`)
-- `exclude_open_pr_branches`: Excluir branches com PRs abertos (padrão: `true`)
-
----
-
 ## 🚀 Configuração Rápida
 
 ### Para usar em outro repositório:
@@ -163,23 +134,6 @@ jobs:
       pr_closed_status: "🎉 Done"
     secrets:
       gh_project_token: ${{ secrets.GH_PROJECT_TOKEN }}
-```
-
-```yaml
-# .github/workflows/cleanup-branches.yml
-name: "Cleanup Old Branches"
-on:
-  schedule:
-    - cron: "0 2 * * 0"  # Todo domingo às 2h UTC
-  workflow_dispatch:
-
-jobs:
-  cleanup-branches:
-    uses: guardiafinance/project-automations/.github/workflows/reusable-cleanup-branchs.yml@main
-    with:
-      date: "3 months ago"
-      dry_run: false  # CUIDADO: false irá deletar branches realmente
-      extra_protected_branch_regex: "^(main|master|develop|staging|production)$"
 ```
 
 2. **Configure as variáveis necessárias:**
@@ -227,31 +181,6 @@ jobs:
       move_related_issues: true
     secrets:
       gh_project_token: ${{ secrets.GH_PROJECT_TOKEN }}
-```
-
-### **Limpeza de Branches (Dry Run):**
-```yaml
-jobs:
-  cleanup-branches:
-    uses: guardiafinance/project-automations/.github/workflows/reusable-cleanup-branchs.yml@main
-    with:
-      date: "6 months ago"
-      dry_run: true  # Apenas mostra o que seria deletado
-      minimum_tags: 10
-```
-
-### **Limpeza de Branches (Produção):**
-```yaml
-jobs:
-  cleanup-branches:
-    uses: guardiafinance/project-automations/.github/workflows/reusable-cleanup-branchs.yml@main
-    with:
-      date: "3 months ago"
-      dry_run: false  # ⚠️ CUIDADO: Irá deletar branches realmente
-      delete_tags: true
-      minimum_tags: 5
-      extra_protected_branch_regex: "^(main|master|develop|staging|production|hotfix/.*)$"
-      extra_protected_tag_regex: "^(v[0-9]+\\.[0-9]+\\.[0-9]+|release-.*)$"
 ```
 
 ---
