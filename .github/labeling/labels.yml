@@ -5,19 +5,19 @@
     - "breaking change"
 
 - name: "bug report 🐞"
-  color: "fc2803"
+  color: "FC2803"
   description: "Report a new bug"
   aliases:
     - "bug"
 
 - name: "bugfix 🔧"
-  color: "fc4e03"
+  color: "FC4E03"
   description: "Issue or PR related to something isn't working"
   aliases:
     - "bugfix"
 
 - name: "ci 🏗️"
-  color: "ff7a0e"
+  color: "FF7A0E"
   description: "Issue or PR releated to Continuous Integration (CI) pipeline enhancements"
   aliases:
     - "ci"
@@ -29,7 +29,7 @@
     - "codex"
 
 - name: "compliance 📜"
-  color: "cdb620"
+  color: "AE6B09"
   description: "Issue or PR releated to enhancement to be compliant with something"
   aliases:
     - "compliance"
@@ -46,20 +46,26 @@
   aliases:
     - "cursor"
 
+- name: "dependabot 🤖"
+  color: "0052CC"
+  description: "Dependabot alert"
+  aliases:
+    - "dependabot"
+
 - name: "deprecate 🪦"
-  color: "5f6a70"
+  color: "5F6A70"
   description: "Issue to deprecate some existing feature"
   aliases:
     - "deprecate"
 
 - name: "documentation 📃"
-  color: "0075ca"
+  color: "0075CA"
   description: "Issue or PR releated to improvements or additions to documentation"
   aliases:
     - "docs"
 
 - name: "duplicate !!"
-  color: "cfd3d7"
+  color: "CFD3D7"
   description: "This issue or pull request already exists"
   aliases:
     - "duplicate"
@@ -95,13 +101,13 @@
     - "good first issue"
 
 - name: "question ✋"
-  color: "d876e3"
+  color: "D876E3"
   description: "Further information is requested"
   aliases:
     - "question"
 
 - name: "rejected ❌"
-  color: "b52816"
+  color: "B52816"
   description: "Issue or pull request rejected"
   aliases:
     - "rejected"
@@ -113,31 +119,37 @@
     - "release"
 
 - name: "size/L"
-  color: "FBCA04"
+  color: "CB9E0A"
   description: "This PR changes 100-499 lines, ignoring generated files. Setted automatically"
 
 - name: "size/M"
-  color: "5319E7"
+  color: "E1B207"
   description: "This PR changes 30-99 lines, ignoring generated files. Setted automatically"
 
 - name: "size/S"
-  color: "0052CC"
+  color: "F3C511"
   description: "This PR changes 10-29 lines, ignoring generated files. Setted automatically"
 
 - name: "size/XL"
-  color: "D93F0B"
+  color: "B68A0D"
   description: "This PR changes 500-999 lines, ignoring generated files. Setted automatically"
 
 - name: "size/XS"
-  color: "52CAFA"
+  color: "FFDB4D"
   description: "This PR changes 0-9 lines, ignoring generated files. Setted automatically"
 
 - name: "size/XXL"
-  color: "B60205"
+  color: "9B770A"
   description: "This PR changes over 1,000 lines, ignoring the generated files. Setted automatically"
 
+- name: "triage 🔍"
+  color: "B60205"
+  description: "This issue needs to be triaged"
+  aliases:
+    - "triage"
+
 - name: "user story 🎯"
-  color: "18F64B"
+  color: "6A42EB"
   description: "A new user story"
   aliases:
     - "user story"
@@ -148,14 +160,8 @@
   aliases:
     - "vulnerability"
 
-- name: "dependabot 🤖"
-  color: "0052CC"
-  description: "Dependabot alert"
-  aliases:
-    - "dependabot"
-
 - name: "wontfix 🤷‍♀️"
-  color: "ffffff"
+  color: "FFFFFF"
   description: "This issue will not be worked on"
   aliases:
     - "wontfix"
