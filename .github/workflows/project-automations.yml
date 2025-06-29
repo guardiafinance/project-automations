@@ -12,94 +12,13 @@ on:
       - reopened
       - closed
 
-env:
-  organization: ${{ vars.ORGANIZATION_NAME }}
-  project_id: ${{ vars.GH_PROJECT_ID }}
-  gh_project_token: ${{ secrets.GH_PROJECT_TOKEN }}
-
 jobs:
-  issue-opened-or-reopened:
-    runs-on: ubuntu-latest
-    name: "Issue Opened or Reopened"
-    if: github.event_name == 'issues' && (github.event.action == 'opened' || (github.event.action == 'reopened' && !contains(github.event.issue.labels.*.name, 'rejected ❌')))
-    steps:
-      - name: Move Issue to BACKLOG
-        uses: leonsteinhaeuser/project-beta-automations@v2.1.0
-        with:
-          organization: ${{ env.organization }}
-          project_id: ${{ env.project_id }}
-          resource_node_id: ${{ github.event.issue.node_id }}
-          gh_token: ${{ env.gh_project_token }}
-          status_value: BACKLOG
-          move_related_issues: true
-  issue-reopened-to-refinement:
-    runs-on: ubuntu-latest
-    name: "Issue Reopened to Refinement"
-    if: github.event_name == 'issues' && github.event.action == 'reopened' && !contains(github.event.issue.labels.*.name, 'rejected ❌')
-    steps:
-      - name: Move Issue to TO REFINEMENT
-        uses: leonsteinhaeuser/project-beta-automations@v2.1.0
-        with:
-          organization: ${{ env.organization }}
-          project_id: ${{ env.project_id }}
-          resource_node_id: ${{ github.event.issue.node_id }}
-          gh_token: ${{ env.gh_project_token }}
-          status_value: "TO REFINEMENT"
-          move_related_issues: true
-  issue-closed:
-    runs-on: ubuntu-latest
-    name: "Issue Closed"
-    if: github.event_name == 'issues' && github.event.action == 'closed' && !contains(github.event.issue.labels.*.name, 'rejected ❌')
-    steps:
-      - name: Move Issue to DONE
-        uses: leonsteinhaeuser/project-beta-automations@v2.1.0
-        with:
-          organization: ${{ env.organization }}
-          project_id: ${{ env.project_id }}
-          resource_node_id: ${{ github.event.issue.node_id }}
-          gh_token: ${{ env.gh_project_token }}
-          status_value: DONE
-          move_related_issues: true
-  issue-rejected:
-    runs-on: ubuntu-latest
-    name: "Issue Rejected"
-    if: github.event_name == 'issues' && github.event.action == 'closed' && contains(github.event.issue.labels.*.name, 'rejected ❌')
-    steps:
-      - name: Move Issue to REJECTED
-        uses: leonsteinhaeuser/project-beta-automations@v2.1.0
-        with:
-          organization: ${{ env.organization }}
-          project_id: ${{ env.project_id }}
-          resource_node_id: ${{ github.event.issue.node_id }}
-          gh_token: ${{ env.gh_project_token }}
-          status_value: REJECTED
-          move_related_issues: true
-  pull-request-opened:
-    runs-on: ubuntu-latest
-    name: "Pull Request Opened or Reopened"
-    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'reopened')
-    steps:
-      - name: Move PR to CODE REVIEW
-        uses: leonsteinhaeuser/project-beta-automations@v2.1.0
-        with:
-          organization: ${{ env.organization }}
-          project_id: ${{ env.project_id }}
-          gh_token: ${{ env.gh_project_token }}
-          resource_node_id: ${{ github.event.pull_request.node_id }}
-          status_value: "CODE REVIEW"
-          move_related_issues: true
-  pull-request-closed:
-    runs-on: ubuntu-latest
-    name: "Pull Request Closed"
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    steps:
-      - name: Move PR to DONE
-        uses: leonsteinhaeuser/project-beta-automations@v2.1.0
-        with:
-          organization: ${{ env.organization }}
-          project_id: ${{ env.project_id }}
-          resource_node_id: ${{ github.event.pull_request.node_id }}
-          gh_token: ${{ env.gh_project_token }}
-          status_value: DONE
+  project-automations:
+    uses: ./.github/workflows/reusable-project-automations.yml
+    with:
+      organization: ${{ vars.ORGANIZATION_NAME }}
+      project_id: ${{ vars.GH_PROJECT_ID }}
+    secrets:
+      gh_project_token: ${{ secrets.GH_PROJECT_TOKEN }}
 
 

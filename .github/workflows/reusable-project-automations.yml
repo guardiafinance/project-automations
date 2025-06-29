@@ -1,0 +1,151 @@
+name: "Reusable: Project Automations"
+
+on:
+  workflow_call:
+    inputs:
+      organization:
+        description: "GitHub organization name"
+        required: true
+        type: string
+      project_id:
+        description: "GitHub project ID"
+        required: true
+        type: string
+      issue_opened_status:
+        description: "Project status for when issues are opened"
+        required: false
+        type: string
+        default: "BACKLOG"
+      issue_reopened_status:
+        description: "Project status for when issues are reopened"
+        required: false
+        type: string
+        default: "TO REFINEMENT"
+      issue_closed_status:
+        description: "Project status for when issues are closed"
+        required: false
+        type: string
+        default: "DONE"
+      issue_rejected_status:
+        description: "Project status for when issues are rejected"
+        required: false
+        type: string
+        default: "REJECTED"
+      pr_opened_status:
+        description: "Project status for when PRs are opened"
+        required: false
+        type: string
+        default: "CODE REVIEW"
+      pr_closed_status:
+        description: "Project status for when PRs are closed"
+        required: false
+        type: string
+        default: "DONE"
+      rejected_label:
+        description: "Label name for rejected items"
+        required: false
+        type: string
+        default: "rejected ❌"
+      move_related_issues:
+        description: "Whether to move related issues"
+        required: false
+        type: boolean
+        default: true
+    secrets:
+      gh_project_token:
+        description: "GitHub project token with project write permissions"
+        required: true
+
+env:
+  DEBUG_LOG: true
+
+jobs:
+  issue-opened-or-reopened:
+    runs-on: ubuntu-latest
+    name: "Issue Opened or Reopened"
+    if: github.event_name == 'issues' && (github.event.action == 'opened' || (github.event.action == 'reopened' && !contains(github.event.issue.labels.*.name, inputs.rejected_label)))
+    steps:
+      - name: Move Issue to Backlog
+        uses: leonsteinhaeuser/project-beta-automations@v2.2.1
+        with:
+          organization: ${{ inputs.organization }}
+          project_id: ${{ inputs.project_id }}
+          resource_node_id: ${{ github.event.issue.node_id }}
+          gh_token: ${{ secrets.gh_project_token }}
+          status_value: ${{ inputs.issue_opened_status }}
+          move_related_issues: ${{ inputs.move_related_issues }}
+
+  issue-reopened-to-refinement:
+    runs-on: ubuntu-latest
+    name: "Issue Reopened to Refinement"
+    if: github.event_name == 'issues' && github.event.action == 'reopened' && !contains(github.event.issue.labels.*.name, inputs.rejected_label)
+    steps:
+      - name: Move Issue to Refinement
+        uses: leonsteinhaeuser/project-beta-automations@v2.2.1
+        with:
+          organization: ${{ inputs.organization }}
+          project_id: ${{ inputs.project_id }}
+          resource_node_id: ${{ github.event.issue.node_id }}
+          gh_token: ${{ secrets.gh_project_token }}
+          status_value: ${{ inputs.issue_reopened_status }}
+          move_related_issues: ${{ inputs.move_related_issues }}
+
+  issue-closed:
+    runs-on: ubuntu-latest
+    name: "Issue Closed"
+    if: github.event_name == 'issues' && github.event.action == 'closed' && !contains(github.event.issue.labels.*.name, inputs.rejected_label)
+    steps:
+      - name: Move Issue to Done
+        uses: leonsteinhaeuser/project-beta-automations@v2.2.1
+        with:
+          organization: ${{ inputs.organization }}
+          project_id: ${{ inputs.project_id }}
+          resource_node_id: ${{ github.event.issue.node_id }}
+          gh_token: ${{ secrets.gh_project_token }}
+          status_value: ${{ inputs.issue_closed_status }}
+          move_related_issues: ${{ inputs.move_related_issues }}
+
+  issue-rejected:
+    runs-on: ubuntu-latest
+    name: "Issue Rejected"
+    if: github.event_name == 'issues' && github.event.action == 'closed' && contains(github.event.issue.labels.*.name, inputs.rejected_label)
+    steps:
+      - name: Move Issue to Rejected
+        uses: leonsteinhaeuser/project-beta-automations@v2.2.1
+        with:
+          organization: ${{ inputs.organization }}
+          project_id: ${{ inputs.project_id }}
+          resource_node_id: ${{ github.event.issue.node_id }}
+          gh_token: ${{ secrets.gh_project_token }}
+          status_value: ${{ inputs.issue_rejected_status }}
+          move_related_issues: ${{ inputs.move_related_issues }}
+
+  pull-request-opened:
+    runs-on: ubuntu-latest
+    name: "Pull Request Opened or Reopened"
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'reopened')
+    steps:
+      - name: Move PR to Code Review
+        uses: leonsteinhaeuser/project-beta-automations@v2.2.1
+        with:
+          organization: ${{ inputs.organization }}
+          project_id: ${{ inputs.project_id }}
+          gh_token: ${{ secrets.gh_project_token }}
+          resource_node_id: ${{ github.event.pull_request.node_id }}
+          status_value: ${{ inputs.pr_opened_status }}
+          move_related_issues: ${{ inputs.move_related_issues }}
+
+  pull-request-closed:
+    runs-on: ubuntu-latest
+    name: "Pull Request Closed"
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    steps:
+      - name: Move PR to Done
+        uses: leonsteinhaeuser/project-beta-automations@v2.2.1
+        with:
+          organization: ${{ inputs.organization }}
+          project_id: ${{ inputs.project_id }}
+          resource_node_id: ${{ github.event.pull_request.node_id }}
+          gh_token: ${{ secrets.gh_project_token }}
+          status_value: ${{ inputs.pr_closed_status }}
+          move_related_issues: ${{ inputs.move_related_issues }} 

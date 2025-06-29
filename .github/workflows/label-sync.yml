@@ -2,21 +2,18 @@ name: Sync labels
 
 on:
   workflow_dispatch:
-
-permissions:
-  issues: write
-  pull-requests: write
+    inputs:
+      dry_run:
+        description: "Run in dry-run mode without making changes"
+        required: false
+        type: boolean
+        default: false
 
 jobs:
-  labels:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          sparse-checkout: .github/labeling/labels.yml
-
-      - uses: EndBug/label-sync@v2
-        with:
-          config-file: .github/labeling/labels.yml
-          delete-other-labels: true
+  sync-labels:
+    uses: ./.github/workflows/reusable-label-sync.yml
+    with:
+      labels_config_path: ".github/labeling/labels.yml"
+      delete_other_labels: true
+      dry_run: ${{ inputs.dry_run || false }}
         

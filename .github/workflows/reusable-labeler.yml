@@ -1,0 +1,87 @@
+name: "Reusable: Auto Labeler"
+
+on:
+  workflow_call:
+    inputs:
+      issue_labeler_config:
+        description: "Path to issue labeler configuration"
+        required: false
+        type: string
+        default: ".github/labeling/issue-labeler.yml"
+      pr_labeler_config:
+        description: "Path to PR labeler configuration"
+        required: false
+        type: string
+        default: ".github/labeling/pr-labeler.yml"
+      pr_reviewers_config:
+        description: "Path to PR reviewers configuration"
+        required: false
+        type: string
+        default: ".github/reviewers/pr-reviewers.yml"
+      enable_size_labeling:
+        description: "Enable automatic size labeling for PRs"
+        required: false
+        type: boolean
+        default: true
+      size_config:
+        description: "Size configuration for PR labeling"
+        required: false
+        type: string
+        default: >
+          {
+            "0": "XS",
+            "10": "S",
+            "30": "M",
+            "100": "L",
+            "500": "XL",
+            "1000": "XXL"
+          }
+
+
+permissions:
+  pull-requests: write
+  issues: write
+  packages: read
+  contents: read
+
+jobs:
+  issue-labeler:
+    runs-on: ubuntu-latest
+    name: "Label Issues"
+    if: github.event_name == 'issues'
+    steps:
+      - name: Label Issues
+        uses: github/issue-labeler@v3.4
+        with:
+          configuration-path: ${{ inputs.issue_labeler_config }}
+          enable-versioned-regex: 0
+          include-title: 1
+          include-body: 1
+          sync-labels: 1
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+  pr-labeler:
+    runs-on: ubuntu-latest
+    name: "Label Pull Requests"
+    if: github.event_name == 'pull_request_target'
+    steps:
+      - name: Auto Assign Reviewers
+        uses: kentaro-m/auto-assign-action@v2.0.0
+        with:
+          configuration-path: ${{ inputs.pr_reviewers_config }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Label Pull Requests
+        uses: actions/labeler@v5
+        with:
+          configuration-path: ${{ inputs.pr_labeler_config }}
+          sync-labels: true
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add Size Labels
+        if: ${{ inputs.enable_size_labeling }}
+        uses: "pascalgn/size-label-action@v0.5.5"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          sizes: ${{ inputs.size_config }} 

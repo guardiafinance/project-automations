@@ -1,0 +1,43 @@
+name: "Reusable: Sync Labels"
+
+on:
+  workflow_call:
+    inputs:
+      labels_config_path:
+        description: "Path to the labels configuration file"
+        required: false
+        type: string
+        default: ".github/labeling/labels.yml"
+      delete_other_labels:
+        description: "Whether to delete labels not defined in config"
+        required: false
+        type: boolean
+        default: true
+      dry_run:
+        description: "Run in dry-run mode without making changes"
+        required: false
+        type: boolean
+        default: false
+
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  sync-labels:
+    runs-on: ubuntu-latest
+    name: "Sync Repository Labels"
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: ${{ inputs.labels_config_path }}
+
+      - name: Sync Labels
+        uses: EndBug/label-sync@v2
+        with:
+          config-file: ${{ inputs.labels_config_path }}
+          delete-other-labels: ${{ inputs.delete_other_labels }}
+          dry-run: ${{ inputs.dry_run }}
+          token: ${{ secrets.GITHUB_TOKEN }} 
