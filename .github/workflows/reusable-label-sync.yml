@@ -7,7 +7,7 @@ on:
         description: "Path to the labels configuration file"
         required: false
         type: string
-        default: ".github/labeling/labels.yml"
+        default: "https://raw.githubusercontent.com/guardiafinance/project-automations/refs/heads/main/.github/labeling/labels.yml"
       delete_other_labels:
         description: "Whether to delete labels not defined in config"
         required: false
@@ -40,4 +40,5 @@ jobs:
           config-file: ${{ inputs.labels_config_path }}
           delete-other-labels: ${{ inputs.delete_other_labels }}
           dry-run: ${{ inputs.dry_run }}
+          request-token: ${{ secrets.YOUR_OWN_SECRET }}
           token: ${{ secrets.GITHUB_TOKEN }} 
