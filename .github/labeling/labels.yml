@@ -118,6 +118,12 @@
   aliases:
     - "release"
 
+- name: "security 🛡️"
+  color: "D93F0B"
+  description: "This PR resolves some security issue"
+  aliases:
+    - "security"
+
 - name: "size/L"
   color: "CB9E0A"
   description: "This PR changes 100-499 lines, ignoring generated files. Setted automatically"
