@@ -48,7 +48,7 @@ jobs:
   issue-labeler:
     runs-on: ubuntu-latest
     name: "Label Issues"
-    if: github.event_name == 'issues'
+    if: github.event_name == 'issues' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Label Issues
         uses: github/issue-labeler@v3.4
@@ -63,7 +63,7 @@ jobs:
   pr-labeler:
     runs-on: ubuntu-latest
     name: "Label Pull Requests"
-    if: github.event_name == 'pull_request_target'
+    if: github.event_name == 'pull_request_target' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Auto Assign Reviewers
         uses: kentaro-m/auto-assign-action@v2.0.0
