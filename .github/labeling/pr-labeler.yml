@@ -27,4 +27,3 @@
 
 'release ↗️':
   - head-branch: ['^release', 'release/']
-  - base-branch: 'main'
