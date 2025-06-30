@@ -1,9 +1,9 @@
-name: "Feature request ➕"
-description: Suggest an idea for this project
-title: feat/ {{ summarize your feature request here }}
-type: Feature
+name: "Feature Request ➕"
+description: Suggest a new feature for the project
+title: "feat/{{ brief feature summary }}"
 labels: 
   - "feature request ➕"
+type: Feature
 assignees:
   - commitybyguardia
 projects:
@@ -13,111 +13,119 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to suggest a new feature!
+        Thank you for contributing with an improvement idea! Please fill out the fields below clearly and objectively.
+
   - type: textarea
-    id: feature-description
+    id: user-story
     attributes:
-      label: Describe the feature you'd like
-      description: A clear and concise description of what you want to happen.
-      placeholder: Tell us about your ideal feature
+      label: Objective
+      description: "What is the objective of this story?"
+      placeholder: ex. As a developer, I want to create a new user story so that I can track the progress of the story
       value: |
-        **Feature Summary**
-        [Provide a brief, one-sentence summary of the feature]
-
-        **User Story**
-        As a [type of user], 
-        I want [feature/functionality] 
-        so that [benefit/value].
-
-        **Current Behavior**
-        [Describe how things work currently, if applicable]
-
-        **Desired Behavior**
-        [Describe how you want things to work with this new feature]
-
-        **Business Value**
-        [Explain why this feature is important and what value it brings]
+        **As** {user_role},
+        **I want** {specific_objective},
+        **So that** {benefit_and_value}.
     validations:
       required: true
+
   - type: textarea
-    id: solution-description
+    id: current-behavior
     attributes:
-      label: Describe the solution you'd like
-      description: A detailed description of the proposed solution.
-      placeholder: Tell us about your ideal solution
+      label: How does it work today?
+      description: Describe how the functionality behaves today (if applicable).
+      placeholder: The system only allows one webhook per client...
       value: |
-        **Proposed Solution**
-        [Describe your preferred solution in detail]
-
-        **Implementation Considerations**
-        - [ ] Frontend changes needed
-        - [ ] Backend changes needed
-        - [ ] Database changes needed
-        - [ ] API changes needed
-        - [ ] Documentation updates needed
-
-        **Acceptance Criteria**
-        - [ ] [Specific criteria that must be met for this feature to be considered complete]
-        - [ ] [Add more criteria as needed]
-
-        **Definition of Done**
-        - [ ] Feature is implemented and tested
-        - [ ] Documentation is updated
-        - [ ] Code is reviewed and approved
-        - [ ] Feature is deployed to production
-    validations:
-      required: true
-  - type: textarea
-    id: alternatives-considered
-    attributes:
-      label: Describe alternatives you've considered
-      description: Any alternative solutions or approaches you've thought about.
-      placeholder: What other approaches have you thought about?
-      value: |
-        **Alternative 1**
-        [Describe the first alternative approach]
-        
-        **Pros:** [List the advantages]
-        **Cons:** [List the disadvantages]
-
-        **Alternative 2**
-        [Describe another alternative approach, if applicable]
-        
-        **Pros:** [List the advantages]
-        **Cons:** [List the disadvantages]
-
-        **Why the proposed solution is better**
-        [Explain why your proposed solution is preferred over these alternatives]
+        How does it work today?
     validations:
       required: false
+
+  - type: textarea
+    id: desired-behavior
+    attributes:
+      label: How should it work?
+      description: Explain how you would like it to work.
+      placeholder: Allow multiple webhooks, categorized by type or environment...
+      value: |
+        How should it work?
+    validations:
+      required: true
+
+  - type: textarea
+    id: business-value
+    attributes:
+      label: How should it work?
+      description: What is the impact of this functionality? Does it help with operations, scalability, security or compliance?
+      placeholder: Facilitates integrations with partners and reduces failure risk in segregated environments.
+      value: |
+        Why is this important?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: How can it be implemented?
+      description: Detail your implementation suggestion, even if it's an initial idea.
+      placeholder: Add new `WebhookGroup` model, adapt /webhooks endpoint, etc.
+      value: |
+        How can it be implemented?
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: impact-areas
+    attributes:
+      label: Impact Areas
+      description: Check the areas that will likely need adjustments.
+      options:
+        - label: Frontend
+        - label: Backend
+        - label: Database
+        - label: Public API
+        - label: SDK
+        - label: Documentation
+        - label: CI/CD
+        - label: Security
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: List other approaches you considered, with pros and cons.
+      placeholder: ex. Use a single endpoint with query params to filter webhooks; use a single endpoint with path params to filter webhooks; etc.
+      value: |
+        Alternatives considered:
+        1) ...
+    validations:
+      required: false
+
   - type: textarea
     id: additional-context
     attributes:
-      label: Additional context
-      description: Add any other context or screenshots about the feature request here.
-      placeholder: Any additional information that might be helpful
+      label: Additional Context
+      description: Screenshots, links, examples or any other additional context.
     validations:
       required: false
-  - type: markdown
-    attributes:
-      value: |
-        In some cases we may need more details, so please consider sharing this information with us below.
 
-        > [!NOTE]
-        > We will only contact you if it is absolutely necessary. To follow the progress of the issue, you can follow it here on Github
   - type: input
     id: slack-username
     attributes:
-      label: Slack Username
-      description: We will use this Slack username onto [Comm.ity by Guardia](https://commitybyguardia.slack.com) to contact you if we need more info.
+      label: Slack (Comm.ity)
+      description: Your username on Guardia's Slack, for contact (optional).
       placeholder: ex. @joao.silva
     validations:
       required: false
+
   - type: input
     id: email
     attributes:
-      label: Email for contact
-      description: We will use this email to contact you if we need more info.
-      placeholder: ex. email@example.com
+      label: Contact email
+      description: Only if direct contact is necessary (optional).
+      placeholder: ex. you@company.com
     validations:
       required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        > To track progress, follow this issue right here on GitHub.
