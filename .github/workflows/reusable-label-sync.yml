@@ -35,7 +35,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          sparse-checkout: ${{ inputs.labels_config_path }}
+          token: ${{ secrets.token || secrets.GITHUB_TOKEN }}
 
       - name: Sync Labels
         uses: EndBug/label-sync@v2
