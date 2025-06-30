@@ -1,27 +1,27 @@
 'documentation 📃':
-  - '\b(docs?|documentations?|specs?|specifications?|readme|manual|guide|tutorial)\b'
+  - '(?i)\b(docs?|documentations?|specs?|specifications?|readme|manual|guide|tutorial)\b'
 
 'ci 🏗️':
-  - '\b(ci|ci[-/]cd|ci[-/]cds?|continuous\s+integration|continuous\s+delivery|continuous\s+deployment|pipeline|pipelines)\b'
+  - '(?i)\b(ci|ci[-/]cd|ci[-/]cds?|continuous\s+integration|continuous\s+delivery|continuous\s+deployment|pipeline|pipelines)\b'
 
 'release ↗️':
-  - '\b(release|releases?)\b'
+  - '(?i)\b(release|releases?)\b'
 
 'rejected ❌':
-  - '\b(rejected|rejected\s+issue|rejected\s+pull\s+request)\b'
+  - '(?i)\b(rejected|rejected\s+issue|rejected\s+pull\s+request)\b'
 
 'question ✋':
-  - '\b(question|questions?|need\s+help|need\s+help|doubts?)\b'
+  - '(?i)\b(question|questions?|need\s+help|need\s+help|doubts?)\b'
 
 'vulnerability 🚨':
-  - '\b(vulnerability|vulnerabilities?|security\s+alert)\b'
+  - '(?i)\b(vulnerability|vulnerabilities?|security\s+alert)\b'
 
 'dependabot 🤖':
-  - '\b(dependabot|dependabot\s+alert)\b'
+  - '(?i)\b(dependabot|dependabot\s+alert)\b'
 
 'enhancement 🔝':
-  - '\b(enhancement|enhancements?|improvement|improvements?)\b'
+  - '(?i)\b(enhancement|enhancements?|improvement|improvements?)\b'
 
 'evolvability ♻️':
-  - '\b(evolvability|evolvability\s+issue|evolvability\s+pull\s+request|refactoring|refactorings?|clean\s+code|clean\s+codes?)\b'
+  - '(?i)\b(evolvability|evolvability\s+issue|evolvability\s+pull\s+request|refactoring|refactorings?|clean\s+code|clean\s+codes?)\b'
 
