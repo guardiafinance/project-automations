@@ -1,6 +1,5 @@
 name: "Labeler"
 on:
-  workflow_dispatch:
   issues:
     types: 
       - opened
