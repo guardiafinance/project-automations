@@ -32,6 +32,11 @@ jobs:
     runs-on: ubuntu-latest
     name: "Sync Repository Labels"
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: ${{ inputs.labels_config_path }}
+
       - name: Sync Labels
         uses: EndBug/label-sync@v2
         with:
