@@ -12,6 +12,10 @@ on:
       - reopened
       - closed
 
+permissions:
+  issues: write
+  pull-requests: write
+
 jobs:
   project-automations:
     uses: ./.github/workflows/reusable-project-automations.yml
