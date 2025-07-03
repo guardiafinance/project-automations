@@ -56,7 +56,7 @@ jobs:
           configuration-path: ${{ inputs.issue_labeler_config }}
           enable-versioned-regex: 0
           include-title: 1
-          include-body: 1
+          include-body: 0
           sync-labels: 1
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
