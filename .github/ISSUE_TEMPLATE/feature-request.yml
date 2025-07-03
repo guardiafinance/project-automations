@@ -81,6 +81,7 @@ body:
         - label: Frontend
         - label: Backend
         - label: Database
+        - label: Observability
         - label: Public API
         - label: SDK
         - label: Documentation
