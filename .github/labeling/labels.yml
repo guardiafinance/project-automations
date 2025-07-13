@@ -1,3 +1,9 @@
+- name: "blocked 🚧"
+  color: "#e99695"
+  description: "Issue or PR have some block to advance"
+  aliases:
+    - "blocked"
+
 - name: "breaking change 💥"
   color: "925845"
   description: "Issue or PR adding a breaking change. Major version bump required"
